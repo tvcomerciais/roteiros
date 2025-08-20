@@ -43,7 +43,7 @@ pontos_a_melhorar = st.multiselect(
      'Rotina Comercial','Campanha']
 )
 
-# Lista de campos para validação (multiselect vira string)
+# Lista de campos para validação
 campos = [
     codigo_ga, observacoes, codigo_rca, roteiro, quantidade_pedidos,
     valor_pedidos, ";".join(pontos_a_melhorar), ";".join(pontos_fortes)
@@ -51,30 +51,40 @@ campos = [
 
 # Configurar Google Sheets
 creds_json = "cescomroteiro-a975e8ef9939.json"  # caminho relativo para seu JSON
-scope = ["https://www.googleapis.com/auth/spreadsheets","https://www.googleapis.com/auth/drive"]
-creds = Credentials.from_service_account_file(creds_json, scopes=scope)
-client = gspread.authorize(creds)
+scope = ["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive"]
 
-# Abrir a planilha
-sheet = client.open("roteiro_visitas").sheet1  # substitua pelo nome da sua planilha
+try:
+    creds = Credentials.from_service_account_file(creds_json, scopes=scope)
+    client = gspread.authorize(creds)
 
-# Botão para gravar
-if st.button("💾 Gravar Informações"):
-    if any(campo.strip() == "" for campo in campos):  # verifica campos vazios
-        st.warning("⚠️ Todos os Campos do Formulário São Obrigatórios.") 
-    else:
-        # Preparar a linha para inserir
-        nova_linha = [
-            data.strftime("%d/%m/%Y"),
-            codigo_ga,
-            observacoes,
-            codigo_rca,
-            roteiro,
-            quantidade_pedidos,
-            valor_pedidos,
-            ";".join(pontos_fortes),
-            ";".join(pontos_a_melhorar)
-        ]
-        # Gravar no Google Sheets
-        sheet.append_row(nova_linha)
-        st.success("🤖 Informações gravadas com sucesso!")
+    # Testar autenticação e listar planilhas disponíveis
+    planilhas = client.openall()
+    st.success("✅ Autenticação bem-sucedida.")
+    st.write("🔎 Planilhas disponíveis:")
+    for p in planilhas:
+        st.write(f"📄 {p.title}")
+
+    # Abrir a planilha específica
+    sheet = client.open("roteiro_visitas").sheet1
+
+    # Botão para gravar
+    if st.button("💾 Gravar Informações"):
+        if any(campo.strip() == "" for campo in campos):
+            st.warning("⚠️ Todos os Campos do Formulário São Obrigatórios.") 
+        else:
+            nova_linha = [
+                data.strftime("%d/%m/%Y"),
+                codigo_ga,
+                observacoes,
+                codigo_rca,
+                roteiro,
+                quantidade_pedidos,
+                valor_pedidos,
+                ";".join(pontos_fortes),
+                ";".join(pontos_a_melhorar)
+            ]
+            sheet.append_row(nova_linha)
+            st.success("🤖 Informações gravadas com sucesso!")
+
+except Exception as e:
+    st.error(f"❌ Erro ao conectar com o Google Sheets: {e}")
