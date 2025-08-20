@@ -50,7 +50,7 @@ campos = [
 ]
 
 # Configurar Google Sheets
-creds_json = "cescomroteiro-a975e8ef9939.json"  # caminho relativo para seu JSON
+creds_json = "cescomroteiro-2898b572018b.json"  # caminho relativo para seu JSON
 scope = ["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive"]
 
 try:
@@ -88,3 +88,4 @@ try:
 
 except Exception as e:
     st.error(f"❌ Erro ao conectar com o Google Sheets: {e}")
+
