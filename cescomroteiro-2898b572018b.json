@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "cescomroteiro",
+  "private_key_id": "2898b572018b734dbe1287a4e704ed5d91dd38e7",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC75tlDXzLokNty\n8UNfd5UPZ+hs9EX/N3uYIg5RPkUeZ+uk7FvTcFbkRz/+8peP7esPP8fLOKI+u1hi\n1phTFFy4+VEEZdYOZIJYx0UgsVCMwIIjn96C/oJvCVR1H38fm+ZqGaRSp+Y8fwiW\nRhfcHB5ktpPN6SHdM8rH2tyliZUVqBDnJj25oTdStMtVaI1Vpheo9apcrA9Rtg8I\nqvGp1EuOml+aFluZdz2flwMlTyU+FGnQV1AjV4FvS6i+3aGwa0yCNaWfUUCAaNd+\nehr38/WYGMMcRkwvNB7lsVNtStHEA9/kDHy2oP5fBR8Y/jagRp4vhHVh3M2Rmnfq\nzKUWdeb/AgMBAAECggEAA+JMW2LRtTzz9vbwYujLNqZPMkavq7bZ4dXSYJuI541T\nsZ+xG43Bk2EQUZTHd+d9vwhHzkuSuaPlunqfwMKK/XJ/L41rVKDUkOvi4eodtXXF\nOuHzF4IV8CBL6UqIC384JA6joZHBkJPk+YuOsrNiGB2DW0jrtPF9H48b6yViOjBW\nF8iuGKxjLvfRQ915ZDi0gmr9B46Ff1ik1re2ulvc9lqV85PMTDhuIknm/PNsIJHg\njKAt6cKoVZhlnB5IIqlaedhhfyHhpXJFolt0+ALeB6vwsyltls3N7GDsjz+doHrA\niyaWoRIbaXUM/kUvAscHuijiG9Ye6zf1NYDcjzYAAQKBgQDd072CP+gL7w0uH5Gc\ncpDeD0OvD4DlYp2qeLAbjc3+ZIDFHf5hsspvTcCIybt4g8X5BAnYCKou81X+zfZE\nJz8XwFJPYUY68fNfU4oHzR1f9kwAPAiZwJ2/khIlAPi47WRn1rKrfbBxxC07709L\nBdx3mJtFAMuCEGKJzRglpOh6/wKBgQDY2S8uHgqVFfw7QSoa5bXXwBbfm52cOgd5\n2TLAjWy6mpA5EW6tTJWvENK1iPrHL5jP0jZP7TcBTXWP5BLocbXRYZmibcha2U8X\ni3zM9/i37IOewx1NmcnjcxVt4vb4kYMOHiUSS3I4yBw2MFO3tHxStgolaJVPSHxi\ngFZgL46UAQKBgQDPRqlP6dM0Q313WbxACbVgKbc+/yecL9fPkNJODOUtDlBc4Dfw\nppYOBwMfThFE/SyiEKn6Ga6cDHiQjXfOGzYTRXwj/GsZbTfSHUdfHsSSBJzjozUO\nJjPA7AbUWOIQOpKVjMKLB/k1dPAnjufy3Fkzz39WrPV8ZT8OMHydwEgTlQKBgChW\nZjde8TsAZvYizhFIz8W9fsPDr9Li3IcnBxDYffRMUi27d2oXR/TT3U5Vl8i7quJl\nySKfDs9YOFk25OmGVXsIe8rCPzXfHJ5VnTaHniWggm9i/i10QSDlRIQ3ZxegAc/7\nfYvkqu+zEcRmwvv2P/Ym1MZWqQehhTnRg7/KuOwBAoGBAIiDfIq51IMeQ4MDnguF\nwBcQC3kzcEe7PNrZiH2V9nu+RWJOuYX43l8lQivF8QYAyJzUExDj0JJtGBYCPxnU\nLnKQrJSIqB19CqLpywsqhkjr4r1fYxRBNKdFbap1xWdC7JhxJSTDKN3k83Y8rNxV\n1hpCucV2n+Jg/8HyQ0GfMZAi\n-----END PRIVATE KEY-----\n",
+  "client_email": "cescomroteiros@cescomroteiro.iam.gserviceaccount.com",
+  "client_id": "101200182445725998643",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/cescomroteiros%40cescomroteiro.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
