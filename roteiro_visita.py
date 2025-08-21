@@ -97,8 +97,12 @@ if st.button("💾 Gravar Informações"):
         try:
             sheet.append_row(nova_linha)
             st.success("🤖 Informações gravadas com sucesso!")
-            # Limpa todos os inputs e recarrega a página
-            st.experimental_rerun()
+
+            # === LIMPA TODOS OS INPUTS ===
+            for key in st.session_state.keys():
+                st.session_state[key] = None
+
         except Exception as e:
             st.error(f"❌ Falha ao gravar no Google Sheets: {e}")
+
 
