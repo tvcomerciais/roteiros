@@ -5,8 +5,13 @@ import locale
 import gspread
 from google.oauth2.service_account import Credentials
 
-# Configurar locale para português (Windows)
-locale.setlocale(locale.LC_TIME, "Portuguese_Brazil.1252")
+# Ajuste do locale para funcionar tanto no Windows quanto no Linux
+try:
+    # Windows
+    locale.setlocale(locale.LC_TIME, "Portuguese_Brazil.1252")
+except locale.Error:
+    # Linux (como no Streamlit Cloud)
+    locale.setlocale(locale.LC_TIME, "pt_BR.UTF-8")
 
 # Título
 st.markdown("<h1 style='font-size:20px; font-family:Arial;'>🎯 INFORMAÇÕES DE ROTAS DE VISITAS</h1>", unsafe_allow_html=True)
@@ -52,15 +57,16 @@ campos = [
     valor_pedidos, ";".join(pontos_a_melhorar), ";".join(pontos_fortes)
 ]
 
-# Configurar Google Sheets via st.secrets
+# Configuração da credencial Google via st.secrets
 service_account_info = st.secrets["google_service_account"]
+
 scope = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive"
 ]
+
 creds = Credentials.from_service_account_info(service_account_info, scopes=scope)
 client = gspread.authorize(creds)
-
 sheet = client.open("roteiro_visitas").sheet1
 
 # Botão para gravar
