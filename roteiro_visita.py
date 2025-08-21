@@ -1,7 +1,6 @@
 import pandas as pd
 import streamlit as st
 import datetime
-import json
 import gspread
 from google.oauth2.service_account import Credentials
 
@@ -65,8 +64,9 @@ campos = [
 # GOOGLE SHEETS VIA SECRETS
 # =========================
 try:
-    # Lê o JSON diretamente dos secrets do Streamlit
-    service_account_info = json.loads(st.secrets["google_service_account"])
+    # Pega o secrets direto como dicionário (não precisa de json.loads)
+    service_account_info = st.secrets["google_service_account"]
+
     scope = ["https://www.googleapis.com/auth/spreadsheets",
              "https://www.googleapis.com/auth/drive"]
 
