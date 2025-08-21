@@ -1,17 +1,8 @@
 import pandas as pd
 import streamlit as st
 import datetime
-import locale
 import gspread
 from google.oauth2.service_account import Credentials
-
-# Ajuste do locale para funcionar tanto no Windows quanto no Linux
-try:
-    # Windows
-    locale.setlocale(locale.LC_TIME, "Portuguese_Brazil.1252")
-except locale.Error:
-    # Linux (como no Streamlit Cloud)
-    locale.setlocale(locale.LC_TIME, "pt_BR.UTF-8")
 
 # Título
 st.markdown("<h1 style='font-size:20px; font-family:Arial;'>🎯 INFORMAÇÕES DE ROTAS DE VISITAS</h1>", unsafe_allow_html=True)
