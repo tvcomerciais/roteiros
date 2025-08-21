@@ -24,31 +24,33 @@ st.write("Data selecionada:", data.strftime("%d/%m/%Y"))
 col1, col2, col3, col4 = st.columns(4)
 
 with col1:
-    codigo_ga = st.text_input("👁️‍🗨️ Código G.A:")
-    observacoes = st.text_input("🤖 Observações:")
+    codigo_ga = st.text_input("👁️‍🗨️ Código G.A:", key="codigo_ga")
+    observacoes = st.text_input("🤖 Observações:", key="observacoes")
 
 with col2:
-    codigo_rca = st.text_input("👩‍💻 Código do RCA:")
-    roteiro = st.selectbox("🕧 Roteiro do Dia:", [' ', 'PARCIAL', 'COMPLETO'])
+    codigo_rca = st.text_input("👩‍💻 Código do RCA:", key="codigo_rca")
+    roteiro = st.selectbox("🕧 Roteiro do Dia:", [' ', 'PARCIAL', 'COMPLETO'], key="roteiro")
 
 with col3:
-    quantidade_pedidos = st.text_input("🤳 Pedidos Realizados:")
+    quantidade_pedidos = st.text_input("🤳 Pedidos Realizados:", key="quantidade_pedidos")
 
 with col4:
-    valor_pedidos = st.text_input("💲 Valor de Pedidos:")
+    valor_pedidos = st.text_input("💲 Valor de Pedidos:", key="valor_pedidos")
 
 pontos_fortes = st.multiselect(
     "💪 Pontos Fortes:",
     ['Planejamento do Dia','Apresentação Pessoal','Leitura de Gôndula',
      'Iniciativa de Vendas','Cinco Passos da Visita','Catalago',
-     'Rotina Comercial','Campanha']
+     'Rotina Comercial','Campanha'],
+    key="pontos_fortes"
 )
 
 pontos_a_melhorar = st.multiselect(
     "💡 Pontos a Desenvolver:",
     ['Planejamento do Dia','Apresentação Pessoal','Leitura de Gôndula',
      'Iniciativa de Vendas','Cinco Passos da Visita','Catalago',
-     'Rotina Comercial','Campanha']
+     'Rotina Comercial','Campanha'],
+    key="pontos_a_melhorar"
 )
 
 # =========================
@@ -64,7 +66,6 @@ campos = [
 # GOOGLE SHEETS VIA SECRETS
 # =========================
 try:
-    # Pega o secrets direto como dicionário (não precisa de json.loads)
     service_account_info = st.secrets["google_service_account"]
 
     scope = ["https://www.googleapis.com/auth/spreadsheets",
@@ -99,10 +100,14 @@ if st.button("💾 Gravar Informações"):
             st.success("🤖 Informações gravadas com sucesso!")
 
             # === LIMPA TODOS OS INPUTS ===
-            for key in st.session_state.keys():
-                st.session_state[key] = None
+            st.session_state.codigo_ga = ""
+            st.session_state.observacoes = ""
+            st.session_state.codigo_rca = ""
+            st.session_state.roteiro = " "
+            st.session_state.quantidade_pedidos = ""
+            st.session_state.valor_pedidos = ""
+            st.session_state.pontos_fortes = []
+            st.session_state.pontos_a_melhorar = []
 
         except Exception as e:
             st.error(f"❌ Falha ao gravar no Google Sheets: {e}")
-
-
