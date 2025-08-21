@@ -1,17 +1,27 @@
 import pandas as pd
 import streamlit as st
 import datetime
+import json
 import gspread
 from google.oauth2.service_account import Credentials
 
-# Título
-st.markdown("<h1 style='font-size:20px; font-family:Arial;'>🎯 INFORMAÇÕES DE ROTAS DE VISITAS</h1>", unsafe_allow_html=True)
+# =========================
+# TÍTULO
+# =========================
+st.markdown(
+    "<h1 style='font-size:20px; font-family:Arial;'>🎯 INFORMAÇÕES DE ROTAS DE VISITAS</h1>",
+    unsafe_allow_html=True
+)
 
-# Campo de data
+# =========================
+# CAMPO DE DATA
+# =========================
 data = st.date_input("📅 Informe a Data:", datetime.date.today())
 st.write("Data selecionada:", data.strftime("%d/%m/%Y"))
 
-# Colunas
+# =========================
+# COLUNAS PARA INPUTS
+# =========================
 col1, col2, col3, col4 = st.columns(4)
 
 with col1:
@@ -20,7 +30,7 @@ with col1:
 
 with col2:
     codigo_rca = st.text_input("👩‍💻 Código do RCA:")
-    roteiro = st.selectbox("🕧 Roteiro do Dia:", [' ','PARCIAL','COMPLETO'])
+    roteiro = st.selectbox("🕧 Roteiro do Dia:", [' ', 'PARCIAL', 'COMPLETO'])
 
 with col3:
     quantidade_pedidos = st.text_input("🤳 Pedidos Realizados:")
@@ -42,25 +52,33 @@ pontos_a_melhorar = st.multiselect(
      'Rotina Comercial','Campanha']
 )
 
-# Lista de campos para validação
+# =========================
+# VALIDAÇÃO DOS CAMPOS
+# =========================
 campos = [
-    codigo_ga, observacoes, codigo_rca, roteiro, quantidade_pedidos,
-    valor_pedidos, ";".join(pontos_a_melhorar), ";".join(pontos_fortes)
+    codigo_ga, observacoes, codigo_rca, roteiro,
+    quantidade_pedidos, valor_pedidos,
+    ";".join(pontos_a_melhorar), ";".join(pontos_fortes)
 ]
 
-# Configuração da credencial Google via st.secrets
-service_account_info = st.secrets["google_service_account"]
+# =========================
+# GOOGLE SHEETS VIA SECRETS
+# =========================
+try:
+    # Lê o JSON diretamente dos secrets do Streamlit
+    service_account_info = json.loads(st.secrets["google_service_account"])
+    scope = ["https://www.googleapis.com/auth/spreadsheets",
+             "https://www.googleapis.com/auth/drive"]
 
-scope = [
-    "https://www.googleapis.com/auth/spreadsheets",
-    "https://www.googleapis.com/auth/drive"
-]
+    creds = Credentials.from_service_account_info(service_account_info, scopes=scope)
+    client = gspread.authorize(creds)
+    sheet = client.open("roteiro_visitas").sheet1
+except Exception as e:
+    st.error(f"❌ Erro ao conectar com Google Sheets: {e}")
 
-creds = Credentials.from_service_account_info(service_account_info, scopes=scope)
-client = gspread.authorize(creds)
-sheet = client.open("roteiro_visitas").sheet1
-
-# Botão para gravar
+# =========================
+# BOTÃO PARA GRAVAR INFORMAÇÕES
+# =========================
 if st.button("💾 Gravar Informações"):
     if any(campo.strip() == "" for campo in campos):
         st.warning("⚠️ Todos os Campos do Formulário São Obrigatórios.") 
@@ -76,5 +94,8 @@ if st.button("💾 Gravar Informações"):
             ";".join(pontos_fortes),
             ";".join(pontos_a_melhorar)
         ]
-        sheet.append_row(nova_linha)
-        st.success("🤖 Informações gravadas com sucesso!")
+        try:
+            sheet.append_row(nova_linha)
+            st.success("🤖 Informações gravadas com sucesso!")
+        except Exception as e:
+            st.error(f"❌ Falha ao gravar no Google Sheets: {e}")
