@@ -1,8 +1,12 @@
 import pandas as pd
 import streamlit as st
 import datetime
+import locale
 import gspread
 from google.oauth2.service_account import Credentials
+
+# Configurar locale para português (Windows)
+locale.setlocale(locale.LC_TIME, "Portuguese_Brazil.1252")
 
 # Título
 st.markdown("<h1 style='font-size:20px; font-family:Arial;'>🎯 INFORMAÇÕES DE ROTAS DE VISITAS</h1>", unsafe_allow_html=True)
@@ -14,7 +18,6 @@ st.write("Data selecionada:", data.strftime("%d/%m/%Y"))
 # Colunas
 col1, col2, col3, col4 = st.columns(4)
 
-# Campos de texto e seleção
 with col1:
     codigo_ga = st.text_input("👁️‍🗨️ Código G.A:")
     observacoes = st.text_input("🤖 Observações:")
@@ -49,43 +52,32 @@ campos = [
     valor_pedidos, ";".join(pontos_a_melhorar), ";".join(pontos_fortes)
 ]
 
-# Configurar Google Sheets
-creds_json = "cescomroteiro-2898b572018b.json"  # caminho relativo para seu JSON
-scope = ["https://www.googleapis.com/auth/spreadsheets", "https://www.googleapis.com/auth/drive"]
+# Configurar Google Sheets via st.secrets
+service_account_info = st.secrets["google_service_account"]
+scope = [
+    "https://www.googleapis.com/auth/spreadsheets",
+    "https://www.googleapis.com/auth/drive"
+]
+creds = Credentials.from_service_account_info(service_account_info, scopes=scope)
+client = gspread.authorize(creds)
 
-try:
-    creds = Credentials.from_service_account_file(creds_json, scopes=scope)
-    client = gspread.authorize(creds)
+sheet = client.open("roteiro_visitas").sheet1
 
-    # Testar autenticação e listar planilhas disponíveis
-    planilhas = client.openall()
-    st.success("✅ Autenticação bem-sucedida.")
-    st.write("🔎 Planilhas disponíveis:")
-    for p in planilhas:
-        st.write(f"📄 {p.title}")
-
-    # Abrir a planilha específica
-    sheet = client.open("roteiro_visitas").sheet1
-
-    # Botão para gravar
-    if st.button("💾 Gravar Informações"):
-        if any(campo.strip() == "" for campo in campos):
-            st.warning("⚠️ Todos os Campos do Formulário São Obrigatórios.") 
-        else:
-            nova_linha = [
-                data.strftime("%d/%m/%Y"),
-                codigo_ga,
-                observacoes,
-                codigo_rca,
-                roteiro,
-                quantidade_pedidos,
-                valor_pedidos,
-                ";".join(pontos_fortes),
-                ";".join(pontos_a_melhorar)
-            ]
-            sheet.append_row(nova_linha)
-            st.success("🤖 Informações gravadas com sucesso!")
-
-except Exception as e:
-    st.error(f"❌ Erro ao conectar com o Google Sheets: {e}")
-
+# Botão para gravar
+if st.button("💾 Gravar Informações"):
+    if any(campo.strip() == "" for campo in campos):
+        st.warning("⚠️ Todos os Campos do Formulário São Obrigatórios.") 
+    else:
+        nova_linha = [
+            data.strftime("%d/%m/%Y"),
+            codigo_ga,
+            observacoes,
+            codigo_rca,
+            roteiro,
+            quantidade_pedidos,
+            valor_pedidos,
+            ";".join(pontos_fortes),
+            ";".join(pontos_a_melhorar)
+        ]
+        sheet.append_row(nova_linha)
+        st.success("🤖 Informações gravadas com sucesso!")
