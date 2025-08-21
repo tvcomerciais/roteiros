@@ -54,6 +54,19 @@ pontos_a_melhorar = st.multiselect(
 )
 
 # =========================
+# FUNÇÃO PARA LIMPAR CAMPOS
+# =========================
+def limpar_campos():
+    st.session_state["codigo_ga"] = ""
+    st.session_state["observacoes"] = ""
+    st.session_state["codigo_rca"] = ""
+    st.session_state["roteiro"] = " "
+    st.session_state["quantidade_pedidos"] = ""
+    st.session_state["valor_pedidos"] = ""
+    st.session_state["pontos_fortes"] = []
+    st.session_state["pontos_a_melhorar"] = []
+
+# =========================
 # VALIDAÇÃO DOS CAMPOS
 # =========================
 campos = [
@@ -98,16 +111,6 @@ if st.button("💾 Gravar Informações"):
         try:
             sheet.append_row(nova_linha)
             st.success("🤖 Informações gravadas com sucesso!")
-
-            # === LIMPA TODOS OS INPUTS ===
-            st.session_state.codigo_ga = ""
-            st.session_state.observacoes = ""
-            st.session_state.codigo_rca = ""
-            st.session_state.roteiro = " "
-            st.session_state.quantidade_pedidos = ""
-            st.session_state.valor_pedidos = ""
-            st.session_state.pontos_fortes = []
-            st.session_state.pontos_a_melhorar = []
-
+            limpar_campos()
         except Exception as e:
             st.error(f"❌ Falha ao gravar no Google Sheets: {e}")
