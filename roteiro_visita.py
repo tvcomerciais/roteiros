@@ -53,15 +53,15 @@ with st.form("formulario_visita", clear_on_submit=True):
     pontos_fortes = st.multiselect(
         "💪 Pontos Fortes:",
         ['Planejamento do Dia','Apresentação Pessoal','Leitura de Gôndula',
-         'Iniciativa de Vendas','Catalago',
-         'Fechamento da Visita','Campanha']
+         'Iniciativa de Vendas','Fechamento da Visita','Catalago',
+         ,'Campanha']
     )
 
     pontos_a_melhorar = st.multiselect(
         "💡 Pontos a Desenvolver:",
         ['Planejamento do Dia','Apresentação Pessoal','Leitura de Gôndula',
-         'Iniciativa de Vendas','Catalago',
-         'Fechamento da Visita','Campanha']
+         'Iniciativa de Vendas','Fechamento da Visita','Catalago',
+         ,'Campanha']
     )
 
     # BOTÃO DE ENVIO
@@ -93,4 +93,5 @@ with st.form("formulario_visita", clear_on_submit=True):
                 st.success("🤖 Informações gravadas com sucesso!")
             except Exception as e:
                 st.error(f"❌ Falha ao gravar no Google Sheets: {e}")
+
 
