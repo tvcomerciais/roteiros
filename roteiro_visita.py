@@ -37,11 +37,11 @@ with st.form("formulario_visita", clear_on_submit=True):
     col1, col2, col3, col4 = st.columns(4)
 
     with col1:
-        codigo_ga = st.number_imput("👁️‍🗨️ Código G.A:" ,step=1, format="%d")
+        codigo_ga = st.number_input("👁️‍🗨️ Código G.A:" ,step=1, format="%d")
         observacoes = st.text_input("🤖 Observações:")
 
     with col2:
-        codigo_rca = st.number_imput("👩‍💻 Código do RCA:", step=1, format="%d")
+        codigo_rca = st.number_input("👩‍💻 Código do RCA:", step=1, format="%d")
         roteiro = st.selectbox("🕧 Roteiro do Dia:", [' ', 'PARCIAL', 'COMPLETO'])
 
     with col3:
@@ -93,6 +93,7 @@ with st.form("formulario_visita", clear_on_submit=True):
                 st.success("🤖 Informações gravadas com sucesso!")
             except Exception as e:
                 st.error(f"❌ Falha ao gravar no Google Sheets: {e}")
+
 
 
 
