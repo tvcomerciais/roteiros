@@ -74,7 +74,7 @@ with st.form("formulario_visita", clear_on_submit=True):
             ";".join(pontos_a_melhorar), ";".join(pontos_fortes)
         ]
 
-        if any(campo.strip() == "" for campo in campos):
+        if any(str(campo).strip() == "" for campo in campos):
             st.warning("⚠️ Todos os Campos do Formulário São Obrigatórios.") 
         else:
             nova_linha = [
@@ -93,6 +93,7 @@ with st.form("formulario_visita", clear_on_submit=True):
                 st.success("🤖 Informações gravadas com sucesso!")
             except Exception as e:
                 st.error(f"❌ Falha ao gravar no Google Sheets: {e}")
+
 
 
 
