@@ -45,7 +45,7 @@ with st.form("formulario_visita", clear_on_submit=True):
         roteiro = st.selectbox("🕧 Roteiro do Dia:", [' ', 'PARCIAL', 'COMPLETO'])
 
     with col3:
-        quantidade_pedidos = st.text_input("🤳 Pedidos Realizados:" )
+        quantidade_pedidos = st.number_input("🤳 Pedidos Realizados:" )
 
     with col4:
         valor_pedidos = st.text_input("💲 Valor de Pedidos:" , value= "0,00")
@@ -93,6 +93,7 @@ with st.form("formulario_visita", clear_on_submit=True):
                 st.success("🤖 Informações gravadas com sucesso!")
             except Exception as e:
                 st.error(f"❌ Falha ao gravar no Google Sheets: {e}")
+
 
 
 
