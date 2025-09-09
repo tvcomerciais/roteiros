@@ -48,7 +48,7 @@ with st.form("formulario_visita", clear_on_submit=True):
         quantidade_pedidos = st.text_input("🤳 Pedidos Realizados:" , step=1, format="%d")
 
     with col4:
-        valor_pedidos = st.text_input("💲 Valor de Pedidos:" , value "0,00")
+        valor_pedidos = st.text_input("💲 Valor de Pedidos:" , value= "0,00")
 
     pontos_fortes = st.multiselect(
         "💪 Pontos Fortes:",
@@ -93,6 +93,7 @@ with st.form("formulario_visita", clear_on_submit=True):
                 st.success("🤖 Informações gravadas com sucesso!")
             except Exception as e:
                 st.error(f"❌ Falha ao gravar no Google Sheets: {e}")
+
 
 
 
