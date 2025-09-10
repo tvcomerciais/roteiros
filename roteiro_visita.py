@@ -42,7 +42,7 @@ with st.form("formulario_visita", clear_on_submit=True):
 
     with col2:
         codigo_rca = st.number_input("👩‍💻 Código do RCA:")
-        roteiro = st.selectbox("🕧 Roteiro do Dia:", [' ', 'PARCIAL', 'COMPLETO'])
+        roteiro = st.selectbox("🕧 Roteiro do Dia:", [' ', 'PARCIAL', 'COMPLETO','Em Integração'])
 
     with col3:
         quantidade_pedidos = st.number_input("🤳 Pedidos Realizados:" )
@@ -54,14 +54,14 @@ with st.form("formulario_visita", clear_on_submit=True):
         "💪 Pontos Fortes:",
         ['Planejamento do Dia','Apresentação Pessoal','Leitura de Gôndula',
          'Iniciativa de Vendas','Fechamento da Visita','Catalago',
-         'Campanha','Não há pontos a Desenvolver']
+         'Campanha','RCA Em Integração']
     )
 
     pontos_a_melhorar = st.multiselect(
         "💡 Pontos a Desenvolver:",
         ['Planejamento do Dia','Apresentação Pessoal','Leitura de Gôndula',
          'Iniciativa de Vendas','Fechamento da Visita','Catalago',
-         'Campanha','Não há pontos a Desenvolver']
+         'Campanha','RCA Em Integração']
     )
 
     # BOTÃO DE ENVIO
@@ -93,6 +93,7 @@ with st.form("formulario_visita", clear_on_submit=True):
                 st.success("🤖 Informações gravadas com sucesso!")
             except Exception as e:
                 st.error(f"❌ Falha ao gravar no Google Sheets: {e}")
+
 
 
 
